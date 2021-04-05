@@ -11,8 +11,7 @@ public interface AccountDao {
     int deleteAccount (int accountId);
 
     int depositAmount(Transaction trans);
-//    int withdrawAmount(AccountUser account);
-
-//    int withdrawAmount()
+    int initialDeposit(Transaction trans1);
+    int withdrawnAmount(Transaction trans2);
 
 }

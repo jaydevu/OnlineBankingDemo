@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AccountDaoImpl implements AccountDao{
+public class AccountDaoImpl implements AccountDao {
 
     Transaction trans = new Transaction();
 
@@ -21,17 +21,17 @@ public class AccountDaoImpl implements AccountDao{
 
         int status = 0;
         int status1 = 0;
-        try(
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.SAVE_SQL);
+        try (
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.SAVE_SQL1);
 //                PreparedStatement ps1 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL);
 
         ) {
 
 
             ps.setString(1, account.getAccountName());
+            ps.setInt(2, account.getAccountNumber());
             ps.setString(3, account.getEmail());
             ps.setLong(4, account.getMobileNo());
-            ps.setInt(2, account.getAccountNumber());
 
 
 //            ps1.setDouble(1, trans.getDepositedAmount());
@@ -51,10 +51,10 @@ public class AccountDaoImpl implements AccountDao{
     @Override
     public int updateAccount(AccountUser account) {
         int updated = 0;
-        try(
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.UPDATE_SQL);
+        try (
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.UPDATE_SQL1);
         ) {
-           ps.setInt(5, account.getAccountId());
+            ps.setInt(5, account.getAccountId());
 
             System.out.println(account.getAccountId());
             System.out.println(account.getAccountName());
@@ -76,41 +76,91 @@ public class AccountDaoImpl implements AccountDao{
     @Override
     public int deleteAccount(int accountId) {
         int deleted = 0;
-        try(
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.DELETE_SQL);
+        try (
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.DELETE_SQL1);
         ) {
 
-            ps.setInt(1,accountId);
-
+            ps.setInt(1, accountId);
 
 
             deleted = ps.executeUpdate();
-        } catch ( Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return deleted;
     }
 
-    public int depositAmount(Transaction trans){
+    @Override
+    public int depositAmount(Transaction trans) {
+        AccountUser account = new AccountUser();
         int deposit = 0;
-        try(
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.SAVE_SQL);
+
+        try (
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL2);
+
         ) {
 
-            ps.setInt(1, trans.getAccountId());
-            ps.setDouble(2, trans.getBalance());
-            ps.setDouble(3, trans.getWithdrawnAmount());
-            ps.setDouble(4, trans.getDepositedAmount());
+            ps.setInt(4, trans.getAccountId());
+            ps.setDouble(1, trans.getBalance());
+            ps.setDouble(2, trans.getWithdrawnAmount());
+            ps.setDouble(3, trans.getDepositedAmount());
 
             System.out.println(ps);
 
 
             deposit = ps.executeUpdate();
-        } catch ( Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return deposit;
 
 
     }
+
+    @Override
+    public int initialDeposit(Transaction trans1) {
+        AccountUser account = new AccountUser();
+        int deposit1 = 0;
+
+        try (
+                PreparedStatement ps1 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.SAVE_SQL2);
+        ) {
+
+            ps1.setInt(1, trans1.getAccountId());
+            ps1.setDouble(2, trans1.getBalance());
+            ps1.setDouble(3, trans1.getWithdrawnAmount());
+            ps1.setDouble(4, trans1.getDepositedAmount());
+
+            System.out.println(ps1);
+
+            deposit1 = ps1.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deposit1;
+    }
+
+    @Override
+    public int withdrawnAmount(Transaction trans2) {
+        int withdraw = 0;
+        try (
+                PreparedStatement ps2 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL2);
+        ) {
+
+            ps2.setInt(4, trans2.getAccountId());
+            ps2.setDouble(1, trans2.getBalance());
+            ps2.setDouble(2, trans2.getWithdrawnAmount());
+            ps2.setDouble(3, trans2.getDepositedAmount());
+
+            System.out.println(ps2);
+
+
+            withdraw = ps2.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return withdraw;
+    }
+
 }
+

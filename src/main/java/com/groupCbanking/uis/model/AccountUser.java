@@ -4,12 +4,10 @@ import java.time.LocalDate;
 
 public class AccountUser {
 
-   private int accountId;
+    int accountId;
     String accountName;
     int accountNumber;
     long mobileNo;
-    String email;
-
 
     public int getAccountId() {
         return accountId;
@@ -51,4 +49,17 @@ public class AccountUser {
         this.email = email;
     }
 
+    String email;
+
+    /*public AccountUser(int accountId, String accountName, int accountNumber, String email, long mobileNo) {
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.accountNumber = accountNumber;
+        this.email = email;
+        this.mobileNo = mobileNo;
+    }
+
+    public AccountUser(){
+
+    }*/
 }

@@ -25,7 +25,17 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public int depositAmount(Transaction trans){
+    public int depositAmount(Transaction trans) {
         return accountDao.depositAmount(trans);
+    }
+
+    @Override
+    public int initialDeposit(Transaction trans1) {
+        return accountDao.initialDeposit(trans1);
+    }
+
+    @Override
+    public int withdrawnAmount(Transaction trans2) {
+        return accountDao.withdrawnAmount(trans2);
     }
 }
