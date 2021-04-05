@@ -18,7 +18,7 @@ public class UserController {
 
 
         Connection con = DbUtil.getConnection();
-        if(con!=null){
+        if (con != null) {
             System.out.println("Hello");
         }
 
@@ -28,14 +28,14 @@ public class UserController {
         String decision = "N";
 
         do {
-            String operation = JOptionPane.showInputDialog("Enter operation: save | update | delete | deposit");
+            String operation = JOptionPane.showInputDialog("Enter operation: save | update | delete | initial deposit | update deposit | withdraw");
             switch (operation) {
 
                 case "save":
                     AccountUser account = getAccount("save");
                     int saved = accountService.saveAccount(account);
                     if (saved >= 1) {
-                        JOptionPane.showMessageDialog(null, "Accountinfo is saved in database");
+                        JOptionPane.showMessageDialog(null, "Account Info is saved in database");
                     } else {
                         JOptionPane.showMessageDialog(null, "Error in database");
                     }
@@ -62,24 +62,70 @@ public class UserController {
                     break;
 
 
-                case "deposit":
+                case "initial deposit":
                     int accountId1 = Integer.parseInt(JOptionPane.showInputDialog("Enter Account Id: "));
 
                     double depositAmount = Integer.parseInt(JOptionPane.showInputDialog("Enter Money to Deposit: "));
-                    Transaction trans = new Transaction();
+                    Transaction trans1 = new Transaction();
 
-                    trans.setAccountId(accountId1);
-                    trans.setDepositedAmount(depositAmount);
+                    trans1.setAccountId(accountId1);
+                    trans1.setDepositedAmount(depositAmount);
 
-                    double balance = trans.getBalance() + trans.getDepositedAmount();
-                    trans.setBalance(balance);
-                    trans.setWithdrawnAmount(0.0);
+                    double balance = trans1.getDepositedAmount();
+                    trans1.setBalance(balance);
+                    trans1.setWithdrawnAmount(0.0);
 
-                    int deposited = accountService.depositAmount(trans);
+                    int deposited = accountService.depositAmount(trans1);
 
 
                     if (deposited >= 1) {
                         JOptionPane.showMessageDialog(null, "Money is entered into account");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error in database");
+                    }
+                    break;
+
+                case "update deposit":
+                    int accountId2 = Integer.parseInt(JOptionPane.showInputDialog("Enter Account Id: "));
+
+                    double depositAmount1 = Integer.parseInt(JOptionPane.showInputDialog("Enter Money to Deposit: "));
+                    Transaction trans = new Transaction();
+
+                    trans.setAccountId(accountId2);
+                    trans.setDepositedAmount(depositAmount1);
+
+                    double balance1 = trans.getBalance() + trans.getDepositedAmount();
+                    trans.setBalance(balance1);
+                    trans.setWithdrawnAmount(0.0);
+
+                    int deposited1 = accountService.depositAmount(trans);
+
+
+                    if (deposited1 >= 1) {
+                        JOptionPane.showMessageDialog(null, "Money is entered into account");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error in database");
+                    }
+                    break;
+
+                case "withdraw":
+                    int accountId3 = Integer.parseInt(JOptionPane.showInputDialog("Enter Account Id: "));
+
+                    double withdrawAmount = Integer.parseInt(JOptionPane.showInputDialog("Enter Money to withdraw: "));
+                    Transaction trans2 = new Transaction();
+
+                    trans2.setAccountId(accountId3);
+                    trans2.setWithdrawnAmount(withdrawAmount);
+
+                    double balance2 = trans2.getBalance() - trans2.getWithdrawnAmount();
+                    trans2.setBalance(balance2);
+                    trans2.setDepositedAmount(0.0);
+
+                    int withdrawn = accountService.withdrawnAmount(trans2);
+
+
+                    if (withdrawn >= 1) {
+                        JOptionPane.showMessageDialog(null, "Money is withdrawn from account");
                     } else {
                         JOptionPane.showMessageDialog(null, "Error in database");
                     }

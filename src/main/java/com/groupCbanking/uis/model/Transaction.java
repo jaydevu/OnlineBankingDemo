@@ -4,11 +4,19 @@ import java.time.LocalDate;
 
 public class Transaction {
 
+    private int accountId;
     private double balance;
     private double withdrawnAmount;
     private double depositedAmount;
-    private int accountId;
+    //private double initialDeposit;
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
 
     public double getBalance() {
         return balance;
@@ -34,13 +42,16 @@ public class Transaction {
         this.depositedAmount = depositedAmount;
     }
 
-    public int getAccountId() {
-        return accountId;
+
+/*public Transaction() {
+
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
-
+    public Transaction(int id, String accountName, int accountNumber, long mobileNo, String email, double balance, double depositedAmount, double withdrawnAmount) {
+        super(id, accountName, accountNumber, email, mobileNo);
+        this.balance = balance;
+        this.withdrawnAmount = withdrawnAmount;
+        this.depositedAmount = depositedAmount;
+    }*/
 
 }
