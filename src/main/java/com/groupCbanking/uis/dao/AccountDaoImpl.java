@@ -7,13 +7,12 @@ import com.groupCbanking.uis.util.DbUtil;
 import com.groupCbanking.uis.util.TransactionQueryUtil;
 
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class AccountDaoImpl implements AccountDao {
 
-    Transaction trans = new Transaction();
+    //Transaction trans = new Transaction();
 
     @Override
     public int saveAccount(AccountUser account) {
@@ -101,7 +100,7 @@ public class AccountDaoImpl implements AccountDao {
         ) {
 
             ps.setInt(4, trans.getAccountId());
-            ps.setDouble(1, trans.getBalance());
+            ps.setDouble(1, (trans.getBalance() + trans.getDepositedAmount()));
             ps.setDouble(2, trans.getWithdrawnAmount());
             ps.setDouble(3, trans.getDepositedAmount());
 
@@ -160,6 +159,27 @@ public class AccountDaoImpl implements AccountDao {
             e.printStackTrace();
         }
         return withdraw;
+    }
+
+    @Override
+    public Double checkBalance(int accountId) {
+        //int checked = 0;
+        Double balance = 0.00;
+        try (
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.CHECK_SQL2);
+
+        ) {
+
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()){
+                balance = rs.getDouble("balance");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return balance;
     }
 
 }

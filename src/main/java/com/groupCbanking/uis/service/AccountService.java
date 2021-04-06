@@ -17,4 +17,7 @@ public interface AccountService {
     int initialDeposit(Transaction trans1);
 
     int withdrawnAmount(Transaction trans2);
+
+    Double checkBalance (int accountId);
+
 }
