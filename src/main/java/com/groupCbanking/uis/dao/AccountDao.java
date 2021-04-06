@@ -13,5 +13,5 @@ public interface AccountDao {
     int depositAmount(Transaction trans);
     int initialDeposit(Transaction trans1);
     int withdrawnAmount(Transaction trans2);
-
+    Double checkBalance(int accountId);
 }

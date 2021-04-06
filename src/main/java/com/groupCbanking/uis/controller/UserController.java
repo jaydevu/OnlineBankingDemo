@@ -28,7 +28,7 @@ public class UserController {
         String decision = "N";
 
         do {
-            String operation = JOptionPane.showInputDialog("Enter operation: save | update | delete | initial deposit | update deposit | withdraw");
+            String operation = JOptionPane.showInputDialog("Enter operation of your choice: \n| save \n| update \n| delete \n| initial deposit \n| update deposit \n| withdraw \n| check balance");
             switch (operation) {
 
                 case "save":
@@ -131,6 +131,15 @@ public class UserController {
                     }
                     break;
 
+                case "check balance":
+                    int accountId4 = Integer.parseInt(JOptionPane.showInputDialog("Enter Account Id: "));
+                    Double balance3 = accountService.checkBalance(accountId4);
+                    if (balance3 >= 1) {
+                        JOptionPane.showMessageDialog(null, "Your balance is: " + balance3);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error in database");
+                    }
+                    break;
 
                 default:
                     JOptionPane.showMessageDialog(null, "Wrong selection");
@@ -162,78 +171,3 @@ public class UserController {
 
     }
 }
-//    public static void printAccountInfo(AccountUser account){
-//        System.out.println("+++++++");
-//        System.out.println("Account id is: " + account.getAccountId());
-//        System.out.println("Account Name is: " + account.getAccountName());
-//        System.out.println(" Email is " + account.getEmail());
-//        System.out.println("Mobile No. is:" + account.getMobileNo());
-//        System.out.println("Account Number is: " + account.getAccountNumber());
-//        System.out.println("+++++++");
-//
-//    }
-//
-//        double balance;
-//        double previousTransaction;
-//        String decision = "N";
-//
-//        public void depositAmount ( double amount){
-//            if (amount != 0) {
-//                balance = balance + amount;
-//                previousTransaction = amount;
-//            }
-//        }
-//
-//        public void withdrawAmount ( double amount){
-//            if (amount != 0) {
-//                balance = balance - amount;
-//                previousTransaction = -amount;
-//            }
-//        }
-//        public void checkPreviousTransaction () {
-//            if (previousTransaction > 0) {
-//                System.out.println("Deposited: " + previousTransaction);
-//                ;
-//            } else if (previousTransaction < 0) {
-//                System.out.println("Withdrawn: " + Math.abs(previousTransaction));
-//            } else {
-//                System.out.println("No transaction");
-//            }
-//
-//            do {
-//                String operation = JOptionPane.showInputDialog("Enter operation: createAccount | depositAmount | withdrawAmount | checkBalance");
-//                switch (operation) {
-//                    case "createAccount":
-//                        break;
-//                    case "depositAmount":
-//                        System.out.println("===============");
-//                        System.out.println("Enter an amount to deposit: ");
-//                        System.out.println("================");
-//                        break;
-//                    case "withdrawAmount":
-//                        System.out.println("===============");
-//                        System.out.println("Enter an amount to withdraw: ");
-//                        System.out.println("===============");
-//                        break;
-//                    case "checkBalance":
-//                        System.out.println("================");
-//                        System.out.println("Your balance is: " + balance);
-//                        System.out.println("================");
-//                        break;
-//                    case "checkPreviousTransaction":
-//                        System.out.println("================");
-//                        System.out.println("================");
-//                        break;
-//                    default:
-//                        JOptionPane.showMessageDialog(null, "Wrong selection");
-//                }
-//                decision = JOptionPane.showInputDialog("Do you want to continue? Enter y|n");
-//
-//            } while (decision.equalsIgnoreCase("y"));
-//
-//            JOptionPane.showMessageDialog(null, "Good Day.");
-//
-//
-//        }
-
-
