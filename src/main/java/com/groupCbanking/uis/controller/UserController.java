@@ -19,18 +19,16 @@ public class UserController {
 
         Connection con = DbUtil.getConnection();
         if (con != null) {
-            System.out.println("Hello");
+            System.out.println("Hello. Connection Success");
         }
 
         AccountService accountService = new AccountServiceImpl();
-
-
-        String decision = "N";
-
+        String decision;
+        //String decision = "N";
         do {
-            String operation = JOptionPane.showInputDialog("Enter operation of your choice: \n| save \n| update \n| delete \n| initial deposit \n| update deposit \n| withdraw \n| check balance");
-            switch (operation) {
-
+            String operation = JOptionPane.showInputDialog("Enter an operation of your choice: \n| save \n| update \n| delete \n| initial deposit \n| update deposit \n| withdraw \n| check balance");
+            switch (operation)
+            {
                 case "save":
                     AccountUser account = getAccount("save");
                     int saved = accountService.saveAccount(account);
@@ -60,7 +58,6 @@ public class UserController {
                         JOptionPane.showMessageDialog(null, "Error in database");
                     }
                     break;
-
 
                 case "initial deposit":
                     int accountId1 = Integer.parseInt(JOptionPane.showInputDialog("Enter Account Id: "));
@@ -143,9 +140,8 @@ public class UserController {
 
                 default:
                     JOptionPane.showMessageDialog(null, "Wrong selection");
-
             }
-            decision = JOptionPane.showInputDialog("Do you want to continue? Enter Y / N");
+            decision = JOptionPane.showInputDialog("Do you want to continue? Enter (Y/N): ");
         } while (decision.equalsIgnoreCase("Y"));
         JOptionPane.showMessageDialog(null, "Thanks for using the service");
 
@@ -168,6 +164,5 @@ public class UserController {
         account.setEmail(email);
         account.setMobileNo(mobileNo);
         return account;
-
     }
 }

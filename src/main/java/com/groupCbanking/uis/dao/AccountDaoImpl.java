@@ -21,20 +21,15 @@ public class AccountDaoImpl implements AccountDao {
         int status = 0;
         int status1 = 0;
         try (
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.SAVE_SQL1);
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.SAVE_SQL1)
 //                PreparedStatement ps1 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL);
 
         ) {
-
-
             ps.setString(1, account.getAccountName());
             ps.setInt(2, account.getAccountNumber());
             ps.setString(3, account.getEmail());
             ps.setLong(4, account.getMobileNo());
-
-
 //            ps1.setDouble(1, trans.getDepositedAmount());
-
 
             System.out.println(ps);
 //            System.out.println(ps1);
@@ -51,7 +46,7 @@ public class AccountDaoImpl implements AccountDao {
     public int updateAccount(AccountUser account) {
         int updated = 0;
         try (
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.UPDATE_SQL1);
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.UPDATE_SQL1)
         ) {
             ps.setInt(5, account.getAccountId());
 
@@ -76,7 +71,7 @@ public class AccountDaoImpl implements AccountDao {
     public int deleteAccount(int accountId) {
         int deleted = 0;
         try (
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.DELETE_SQL1);
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(AccountQueryUtil.DELETE_SQL1)
         ) {
 
             ps.setInt(1, accountId);
@@ -95,7 +90,7 @@ public class AccountDaoImpl implements AccountDao {
         int deposit = 0;
 
         try (
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL2);
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL2)
 
         ) {
 
@@ -122,7 +117,7 @@ public class AccountDaoImpl implements AccountDao {
         int deposit1 = 0;
 
         try (
-                PreparedStatement ps1 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.SAVE_SQL2);
+                PreparedStatement ps1 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.SAVE_SQL2)
         ) {
 
             ps1.setInt(1, trans1.getAccountId());
@@ -143,7 +138,7 @@ public class AccountDaoImpl implements AccountDao {
     public int withdrawnAmount(Transaction trans2) {
         int withdraw = 0;
         try (
-                PreparedStatement ps2 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL2);
+                PreparedStatement ps2 = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.UPDATE_SQL2)
         ) {
 
             ps2.setInt(4, trans2.getAccountId());
@@ -164,9 +159,9 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public Double checkBalance(int accountId) {
         //int checked = 0;
-        Double balance = 0.00;
+        double balance = 0.00;
         try (
-                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.CHECK_SQL2);
+                PreparedStatement ps = DbUtil.getConnection().prepareStatement(TransactionQueryUtil.CHECK_SQL2)
 
         ) {
 
